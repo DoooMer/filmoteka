@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${search.length()>0} ? 'Поиск по ' + ${search} : 'Все фильмы'"></title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large modal-trigger waves-effect waves-light" th:href="@{/film/add}">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+        <div class="row">
+            <div th:if="${search.length()>0}" class="col s12">
+                <p class="flow-text">Поиск по "<span th:text="${search}"></span>"</p>
+            </div>
+            <div class="col s12">
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Диск</th>
+                            <th>Обложка</th>
+                            <th>Название</th>
+                            <th>Год</th>
+                            <th>Жанр</th>
+                            <th>Режиссер</th>
+                            <th>В ролях</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="film : ${films}">
+                            <td th:text="${film.getId()}"></td>
+                            <td>
+                                <a th:href="@{~/disk/{disk}(disk=${film.getDiskNumber()})}" th:text="${film.getDiskNumber()}">0</a>
+                            </td>
+                            <td>
+                                <a th:href="@{~/film/{id}(id=${film.getId()})}">
+                                    <img th:src="${film.getCoverImageLink()}" style="max-height: 150px;" src="#"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{~/film/{id}(id=${film.getId()})}" th:text="${film.getTitle()}"></a>
+                            </td>
+                            <td th:text="${film.getYear()}"></td>
+                            <td th:utext="${#strings.replace(film.getGenre(), '&#10;','&lt;br&gt;')}"></td>
+                            <td th:utext="${#strings.replace(film.getDirector(), '&#10;','&lt;br&gt;')}"></td>
+                            <td th:utext="${#strings.replace(film.getRole(), '&#10;', '&lt;br&gt;')}"></td>
+                            <td class="right-align" style="min-width: 120px;">
+                                <a th:href="@{/film/{id}/edit(id=${film.id})}" class="btn-small" title="Редактировать">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <a th:href="@{/film/{id}/delete(id=${film.id})}" class="btn-small red" title="Удалить">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s3">
+                <p>Всего: <span th:text="${total}"></span></p>
+            </div>
+            <div class="col s9">
+                <ul class="pagination right">
+                    <li th:if="${pages.size()>1}" th:class="${currentPage}==1 ? 'disabled' : 'waves-effect'">
+                        <a th:if="${currentPage}>1" th:href="@{~/(page=(${currentPage}-1),search=${search})}">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                    </li>
+                    <li th:if="${pages.size()>1}" th:each="page : ${pages}" th:class="(${currentPage}==${page})? 'active' : 'waves-effect'">
+                        <a th:href="@{~/(page=${page},search=${search})}" th:text="${page}">1</a>
+                    </li>
+                    <li th:if="${pages.size()>1}" th:class="(${currentPage}==${pages.size()}) ? 'disabled' : 'waves-effect'">
+                        <a th:if="${currentPage}<${pages.size()}" th:href="@{~/(page=(${currentPage}+1),search=${search})}">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

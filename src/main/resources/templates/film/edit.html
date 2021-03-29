@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Редактирование ' + ${film.getTitle} + ' (' + ${film.getDiskNumber()} + ')'"></title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col s12">
+                <form th:action="@{/film/{id}/update(id=${film.id})}" action="#" th:object="${film}" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="title" type="text" th:field="*{title}" required>
+                            <label for="title">Название</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="disk_number" type="number" th:field="*{diskNumber}" required>
+                            <label for="disk_number">№ диска</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="year" type="number" th:field="*{year}">
+                            <label for="year">Год</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">link</i>
+                            <input id="cover_image_link" type="text" th:field="*{coverImageLink}">
+                            <label for="genre">Обложка</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="genre" th:field="*{genre}" class="materialize-textarea"></textarea>
+                            <label for="genre">Жанр</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="director" th:field="*{director}" class="materialize-textarea"></textarea>
+                            <label for="director">Режиссер</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="role" th:field="*{role}" class="materialize-textarea"></textarea>
+                            <label for="role">В ролях</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <input type="submit" class="btn" value="Сохранить"/>
+                            <a th:href="@{/}" class="btn btn-flat">Отмена</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

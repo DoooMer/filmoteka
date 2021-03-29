@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Фильм ' + ${film.getTitle} + ' (' + ${film.getDiskNumber()} + ')'"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col s9">
+            <div class="row">
+                <div class="col s12">
+                    <h2 th:text="${film.getTitle()}"></h2>
+                </div>
+                <div class="col s6">
+                    <h4>Год</h4>
+                    <p th:text="${film.getYear()}"></p>
+                </div>
+                <div class="col s6">
+                    <h4>Номер диска</h4>
+                    <p th:text="${film.getDiskNumber()}"></p>
+                </div>
+                <div class="col s12" th:if="${film.getGenre().length()>0}">
+                    <h4>Жанр</h4>
+                    <p th:text="${film.getGenre()}"></p>
+                </div>
+                <div class="col s12" th:if="${film.getDirector().length()>0}">
+                    <h4>Режиссер</h4>
+                    <p th:text="${film.getDirector()}"></p>
+                </div>
+                <div class="col s12" th:if="${film.getRole().length()>0}">
+                    <h4>В ролях</h4>
+                    <p th:text="${film.getRole()}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col s3 center-align">
+            <img th:src="${film.getCoverImageLink()}" style="max-height: 300px; margin-top: 20px;" src="#">
+        </div>
+        <div class="col s12">
+            <a th:href="@{/film/{id}/edit(id=${film.id})}" class="btn" title="Редактировать">
+                <i class="material-icons">edit</i>
+            </a>
+            <a th:href="@{/film/{id}/delete(id=${film.id})}" class="btn red" title="Удалить">
+                <i class="material-icons">delete</i>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Импорт</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col s12">
+                <p class="flow-text" th:text="'Импортировано записей: ' + ${imported}"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

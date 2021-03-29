@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Импорт</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col s12">
+                <form th:action="@{/_import/load}" action="#" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>Файл</span>
+                                    <input id="file" name="file" type="file" required>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <input type="submit" class="btn" value="Загрузить"/>
+                            <a th:href="@{~/_import}" class="btn btn-flat">Отмена</a>
+                            <a th:href="@{/}" class="btn btn-flat right">Выйти</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
