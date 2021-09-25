@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Передача "[[${film.title}]]"</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col s12">
+                <h4>Передача "[[${film.title}]]"</h4>
+                <form th:action="@{/film/{id}/rent(id=${film.id})}" action="#" th:object="${rent}" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="name" type="text" th:field="*{name}" required>
+                            <label for="name">Кому</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <input type="submit" class="btn" value="Сохранить"/>
+                            <a th:href="@{/film/{id}(id=${film.id})}" class="btn btn-flat">Отмена</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

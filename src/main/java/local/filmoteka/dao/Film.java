@@ -3,12 +3,12 @@ package local.filmoteka.dao;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Films")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Film
 {
     @Id
@@ -51,4 +51,12 @@ public class Film
     @Getter
     @Setter
     private String coverImageLink;
+
+    @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
+    @Getter
+    @Setter
+    private Set<Link> links;
+
+    @OneToOne(mappedBy = "film")
+    private Rent rent;
 }

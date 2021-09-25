@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Новая ссылка</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col s12">
+                <form th:action="@{/film/{id}/links/create(id=${film.id})}" action="#" th:object="${link}" method="post">
+                    <div class="row">
+                        <div class="col s12">
+                            <h4>Новая ссылка для "[[${film.title}]]"</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m4">
+                            <input id="title" type="text" th:field="*{title}" required>
+                            <label for="title">Название</label>
+                        </div>
+                        <div class="input-field col s12 m8">
+                            <input id="url" type="text" th:field="*{url}" required>
+                            <label for="url">Ссылка</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <input type="submit" class="btn" value="Сохранить"/>
+                            <a th:href="@{/film/{id}(id=${film.id})}" class="btn btn-flat">Отмена</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
