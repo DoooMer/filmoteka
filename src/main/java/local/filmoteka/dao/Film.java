@@ -58,5 +58,7 @@ public class Film
     private Set<Link> links;
 
     @OneToOne(mappedBy = "film")
+    @Getter
+    @Setter
     private Rent rent;
 }
