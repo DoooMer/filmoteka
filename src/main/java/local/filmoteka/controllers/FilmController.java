@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class FilmController
     @GetMapping("/")
     public String index(@RequestParam Optional<String> search, @RequestParam Optional<Integer> page, Model model)
     {
-        final Integer currentPage = page.orElse(1);
+        final int currentPage = page.orElse(1);
         PageRequest pagination = PageRequest.of(currentPage - 1, 20, Sort.by("title").ascending());
         Page<Film> filmsList;
 
@@ -46,11 +47,16 @@ public class FilmController
 
         model.addAttribute("films", filmsList.getContent());
 
-        List<Integer> pages = new ArrayList<>();
+        List<Integer> pages = new ArrayList<>(filmsList.getTotalPages());
+
         for (int i = 1; i <= filmsList.getTotalPages(); i++) {
             pages.add(i);
         }
+
+        pages = pages.subList(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pages.size()));
+
         model.addAttribute("pages", pages);
+        model.addAttribute("maxPages", Collections.max(pages));
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("total", filmsList.getTotalElements());
         model.addAttribute("search", search.orElse(""));
