@@ -1,5 +1,5 @@
 FROM arm32v7/adoptopenjdk:15-jre
 
-COPY /target/filmoteka-1.0.0.jar /usr/src/app/filmoteka.jar
+COPY /target/filmoteka-1.1.1.jar /usr/src/app/filmoteka.jar
 WORKDIR /usr/src/app
 CMD ["java", "-jar", "filmoteka.jar"]
