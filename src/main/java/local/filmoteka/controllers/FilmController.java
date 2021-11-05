@@ -53,10 +53,12 @@ public class FilmController
             pages.add(i);
         }
 
-        pages = pages.subList(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pages.size()));
+        if (!pages.isEmpty()) {
+            pages = pages.subList(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pages.size()));
+        }
 
         model.addAttribute("pages", pages);
-        model.addAttribute("maxPages", Collections.max(pages));
+        model.addAttribute("maxPages", pages.size() > 0 ? Collections.max(pages) : 0);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("total", filmsList.getTotalElements());
         model.addAttribute("search", search.orElse(""));
