@@ -1,5 +1,9 @@
 FROM openjdk:15.0-slim
 
-COPY /target/filmoteka-1.1.1.jar /usr/src/app/filmoteka.jar
+COPY /target/*.jar /usr/src/app/filmoteka.jar
+
 WORKDIR /usr/src/app
-CMD ["java", "-jar", "filmoteka.jar"]
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "-Dspring.jpa.hibernate.ddl-auto=update", "filmoteka.jar"]
